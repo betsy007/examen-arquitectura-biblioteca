@@ -70,7 +70,7 @@ examen-arquitectura-biblioteca/
 │   └── 4-flujo-completo.md
 │
 ├── diagramas/
-│   ├── mermaid/                      ← código fuente de cada diagrama (.mmd)
+│   ├── mermaid/                      ← código fuente de cada diagrama (.mmd y .dsl)
 │   └── png/                          ← exportar aquí desde mermaid.live
 │
 └── src/main/java/cetys/biblioteca/   ← código fuente Java (Maven)
