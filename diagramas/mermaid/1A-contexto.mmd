@@ -1,49 +1,23 @@
-workspace "Biblioteca CETYS" "Sistema de gestión de biblioteca universitaria" {
+%%{init: {'theme':'default'} }%%
+flowchart TB
+    classDef person fill:#08427b,stroke:#052e56,color:#ffffff
+    classDef system fill:#1168bd,stroke:#0b4884,color:#ffffff
+    classDef external fill:#999999,stroke:#6b6b6b,color:#ffffff
 
-    model {
-        # ── Actores humanos ──
-        estudiante    = person "Estudiante"      "Solicita préstamos, reserva salas y paga multas."
-        bibliotecario = person "Bibliotecario"   "Gestiona préstamos, devoluciones y multas."
-        admin         = person "Administrador"   "Administra usuarios, políticas y configuración del sistema."
+    Est["👤 Estudiante<br/><i>Solicita prestamos, reserva salas,<br/>consulta multas</i>"]:::person
+    Bib["👤 Bibliotecario<br/><i>Aprueba prestamos, registra<br/>devoluciones, gestiona multas</i>"]:::person
+    Adm["👤 Administrador<br/><i>Administra usuarios y politicas</i>"]:::person
 
-        # ── Sistema bajo diseño ──
-        biblioteca = softwareSystem "Sistema de Biblioteca CETYS" "Gestiona préstamos de libros, reservas de salas y multas a estudiantes."
+    Sis["🟦 Sistema de Biblioteca CETYS<br/><i>Gestiona prestamos de libros,<br/>reservas y multas</i>"]:::system
 
-        # ── Sistemas externos ──
-        catalogo   = softwareSystem "Catálogo CETYS"                          "Provee el catálogo institucional de libros."     "External"
-        pagos      = softwareSystem "Sistema de Pagos Bancario"               "Procesa cobros de fianzas y multas."             "External"
-        directorio = softwareSystem "Directorio Estudiantil Institucional"    "Autenticación y datos oficiales de alumnos."     "External"
+    Cat["🟪 Catalogo CETYS<br/><i>Catalogo institucional<br/>de libros</i>"]:::external
+    Pag["🟪 Sistema de Pagos Bancario<br/><i>Procesa cobros de fianzas<br/>y multas</i>"]:::external
+    Dir["🟪 Directorio Estudiantil<br/><i>Autenticacion y datos<br/>de alumnos</i>"]:::external
 
-        # ── Relaciones ──
-        estudiante    -> biblioteca "Solicita préstamos, reserva salas, consulta multas"
-        bibliotecario -> biblioteca "Aprueba préstamos, registra devoluciones, gestiona multas"
-        admin         -> biblioteca "Administra usuarios y políticas"
+    Est -->|Solicita prestamos / HTTPS| Sis
+    Bib -->|Aprueba prestamos / HTTPS| Sis
+    Adm -->|Administra / HTTPS| Sis
 
-        biblioteca -> catalogo   "Consulta disponibilidad y datos de libros" "SOAP"
-        biblioteca -> pagos      "Cobra fianzas y multas"                    "REST"
-        biblioteca -> directorio "Autentica usuarios y obtiene datos de alumnos" "LDAP"
-    }
-
-    views {
-        systemContext biblioteca "Contexto" {
-            include *
-            autoLayout
-        }
-
-        styles {
-            element "Person" {
-                shape Person
-                background "#08427b"
-                color "#ffffff"
-            }
-            element "Software System" {
-                background "#1168bd"
-                color "#ffffff"
-            }
-            element "External" {
-                background "#999999"
-                color "#ffffff"
-            }
-        }
-    }
-}
+    Sis -->|Consulta libros<br/>SOAP| Cat
+    Sis -->|Cobra fianzas<br/>HTTPS/REST| Pag
+    Sis -->|Autentica usuarios<br/>LDAP| Dir
