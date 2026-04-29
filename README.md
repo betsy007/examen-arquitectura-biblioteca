@@ -137,4 +137,4 @@ GitHub renderiza Mermaid de forma nativa en archivos `.md`, así que los diagram
 
 ## Autora
 
-Betsy López — CETYS Universidad
+Betsy Danaeth Arceo Rivera — CETYS Universidad
