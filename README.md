@@ -1,8 +1,8 @@
-# Examen de prueba — Sistema de Biblioteca Universitaria
+# Examen — Sistema de Biblioteca Universitaria
 
-**Materia:** Arquitectura de Software
-**Institución:** CETYS Universidad
-**Tipo:** Parcial práctico
+**Materia:** Arquitectura de Software<br>
+**Institución:** CETYS Universidad<br>
+**Tipo:** Parcial práctico<br>
 **Temas evaluados:** Modelo C4 · Singleton · Factory · Adapter · Builder · Principios SOLID · Clean Architecture
 
 ---
@@ -137,4 +137,4 @@ GitHub renderiza Mermaid de forma nativa en archivos `.md`, así que los diagram
 
 ## Autora
 
-Betsy Danaeth Arceo Rivera — CETYS Universidad
+42167 - Betsy Danaeth Arceo Rivera — CETYS Universidad
