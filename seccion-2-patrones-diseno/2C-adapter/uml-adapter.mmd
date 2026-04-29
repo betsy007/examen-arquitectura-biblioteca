@@ -1,0 +1,33 @@
+classDiagram
+    class CatalogoBiblioteca {
+        <<interface · Target>>
+        +buscarLibro(isbn: String) Libro
+    }
+    class CatalogoCETYSAdapter {
+        <<Adapter>>
+        -catalogoExterno : CatalogoCETYS
+        +CatalogoCETYSAdapter(c: CatalogoCETYS)
+        +buscarLibro(isbn: String) Libro
+        -mapearIsbnACodigoCETYS()
+        -extraerAnio()
+    }
+    class CatalogoCETYS {
+        <<Adaptee · no se modifica>>
+        +consultarObra(codigoCETYS: String, formato: String) ResultadoSOAP
+    }
+    class ResultadoSOAP {
+        <<DTO externo>>
+        -codigoObra : String
+        -tituloObra : String
+        -autorPrincipal : String
+        -fechaPublicacion : String
+        -estatus : String
+    }
+    class RegistrarPrestamoUseCase {
+        <<cliente>>
+    }
+
+    CatalogoBiblioteca <|.. CatalogoCETYSAdapter : implementa
+    CatalogoCETYSAdapter o--> CatalogoCETYS : delega en
+    CatalogoCETYS ..> ResultadoSOAP : retorna
+    RegistrarPrestamoUseCase ..> CatalogoBiblioteca : usa

@@ -1,0 +1,14 @@
+classDiagram
+    class AuditoriaLogger {
+        <<Singleton>>
+        -instancia : AuditoriaLogger$
+        -AuditoriaLogger()
+        +getInstancia()$ AuditoriaLogger
+        +registrar(evento: String, usuario: String) void
+    }
+    class Cliente {
+        <<usa>>
+    }
+    AuditoriaLogger --> AuditoriaLogger : crea (1)
+    Cliente ..> AuditoriaLogger : usa
+    note for AuditoriaLogger "Constructor privado.\nUna sola instancia en toda la JVM.\nThread-safe via volatile + double-checked locking."

@@ -1,0 +1,44 @@
+sequenceDiagram
+    autonumber
+    actor Est as Estudiante
+    participant Web as Web App
+    participant Ctrl as PrestamoController
+    participant Bld as SolicitudPrestamoBuilder
+    participant UC as RegistrarPrestamoUseCase
+    participant CAd as CatalogoCETYSAdapter
+    participant Cat as Catalogo CETYS
+    participant PG as PagosGateway
+    participant Pag as Sistema Pagos
+    participant Repo as RepositorioPrestamos
+    participant Log as AuditoriaLogger
+
+    Est->>Web: Llena formulario [C4: 1]
+    Web->>Ctrl: POST /prestamos [C4: 2]
+
+    rect rgb(255, 230, 220)
+    Note right of Ctrl: Builder
+    Ctrl->>Bld: con*().construir()
+    Bld-->>Ctrl: SolicitudPrestamo (inmutable)
+    end
+
+    Ctrl->>UC: ejecutar(solicitud) [C4: 3]
+
+    rect rgb(220, 245, 235)
+    Note right of UC: Adapter
+    UC->>CAd: buscarLibro(isbn)
+    CAd->>Cat: consultarObra(codigo, JSON) [SOAP, C4: 1]
+    Cat-->>CAd: ResultadoSOAP
+    CAd-->>UC: Libro
+    end
+
+    UC->>PG: cobrarFianza(estudiante, monto)
+    PG->>Pag: POST /pagos [REST, C4: 1]
+    Pag-->>PG: 200 OK + reciboId
+    PG-->>UC: cobro confirmado
+
+    UC->>Repo: guardar(prestamo)
+
+    rect rgb(255, 245, 215)
+    Note right of UC: Singleton
+    UC->>Log: getInstancia().registrar(PRESTAMO, userId)
+    end

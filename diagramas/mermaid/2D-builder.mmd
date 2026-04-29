@@ -1,0 +1,43 @@
+classDiagram
+    class SolicitudPrestamoBuilder {
+        <<Builder>>
+        ~estudiante : Estudiante
+        ~libro : Libro
+        ~fechaDevolucion : LocalDate
+        ~notasEspeciales : String = null
+        ~renovacionAutomatica : boolean = false
+        ~numRenovaciones : int = 1
+        +conEstudiante(e) Builder
+        +conLibro(l) Builder
+        +conFechaDevolucion(f) Builder
+        +conNotasEspeciales(n) Builder
+        +conRenovacionAutomatica(b) Builder
+        +conNumRenovaciones(n) Builder
+        +construir() SolicitudPrestamo
+    }
+    class SolicitudPrestamo {
+        <<inmutable>>
+        -estudiante : Estudiante
+        -libro : Libro
+        -fechaDevolucion : LocalDate
+        -notasEspeciales : String
+        -renovacionAutomatica : boolean
+        -numRenovaciones : int
+        ~SolicitudPrestamo(b: Builder)
+        +getEstudiante() Estudiante
+        +getLibro() Libro
+        +getFechaDevolucion() LocalDate
+        +getNotasEspeciales() String
+        +isRenovacionAutomatica() boolean
+        +getNumRenovaciones() int
+        +equals(o) boolean
+        +hashCode() int
+        +toString() String
+    }
+    class PrestamoController {
+        <<cliente>>
+    }
+
+    SolicitudPrestamoBuilder ..> SolicitudPrestamo : crea
+    PrestamoController ..> SolicitudPrestamoBuilder : usa
+    note for SolicitudPrestamo "Clase final, sin setters.\nTodos los atributos son final.\nSolo el Builder puede instanciarla."

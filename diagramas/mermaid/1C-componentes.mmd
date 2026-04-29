@@ -1,0 +1,56 @@
+%%{init: {'theme':'default'} }%%
+flowchart TB
+    classDef component fill:#85bbf0,stroke:#5d82a8,color:#000000
+    classDef singleton fill:#cc6600,stroke:#8b4500,color:#ffffff
+    classDef factory fill:#7b1fa2,stroke:#4a0072,color:#ffffff
+    classDef adapter fill:#c62828,stroke:#8e0000,color:#ffffff
+    classDef builder fill:#2e7d32,stroke:#1b5e20,color:#ffffff
+    classDef interfaceCls fill:#bdd7ee,stroke:#7a9fc1,color:#000000
+    classDef external fill:#999999,stroke:#6b6b6b,color:#ffffff
+
+    subgraph Controllers["Controllers (capa entrada)"]
+        PCtrl["PrestamoController"]:::component
+        UCtrl["UsuarioController"]:::component
+    end
+
+    subgraph UCases["Use Cases (capa aplicacion)"]
+        RegUC["RegistrarPrestamoUseCase"]:::component
+        AutUC["AutenticarUsuarioUseCase"]:::component
+    end
+
+    subgraph Patterns["Patrones (Seccion 2)"]
+        Bld["SolicitudPrestamoBuilder<br/><i>«Builder»</i>"]:::builder
+        Fab["FabricaDeUsuarios<br/><i>«Factory»</i>"]:::factory
+        Adp["CatalogoCETYSAdapter<br/><i>«Adapter»</i>"]:::adapter
+        Sng["AuditoriaLogger<br/><i>«Singleton»</i>"]:::singleton
+    end
+
+    subgraph Ports["Puertos y Gateways"]
+        RepoP["RepositorioPrestamos<br/><i>«interface»</i>"]:::interfaceCls
+        RepoJpa["RepoPrestamosJPA"]:::component
+        PagosG["PagosGateway"]:::component
+        DirG["DirectorioLDAPGateway"]:::component
+    end
+
+    Cat["🟪 Catalogo CETYS<br/>(SOAP)"]:::external
+    Pag["🟪 Sistema de Pagos<br/>(REST)"]:::external
+    Dir["🟪 Directorio LDAP"]:::external
+
+    PCtrl --> Bld
+    PCtrl --> RegUC
+    UCtrl --> Fab
+    UCtrl --> AutUC
+
+    RegUC --> RepoP
+    RegUC --> Adp
+    RegUC --> PagosG
+    RegUC --> Sng
+
+    AutUC --> DirG
+    AutUC --> Sng
+
+    RepoP -.->|implementado por| RepoJpa
+
+    Adp -->|SOAP| Cat
+    PagosG -->|REST| Pag
+    DirG -->|LDAP| Dir

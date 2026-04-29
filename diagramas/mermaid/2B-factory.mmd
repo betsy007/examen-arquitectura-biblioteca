@@ -1,0 +1,51 @@
+classDiagram
+    class Usuario {
+        <<interface>>
+        +getId() String
+        +getNombre() String
+        +getRol() String
+        +getLimitePrestamos() int
+        +puedeAprobarPrestamos() boolean
+    }
+    class Estudiante {
+        -id : String
+        -nombre : String
+        +Estudiante(id, nombre)
+    }
+    class Bibliotecario {
+        -id : String
+        -nombre : String
+        +Bibliotecario(id, nombre)
+    }
+    class Admin {
+        -id : String
+        -nombre : String
+        +Admin(id, nombre)
+    }
+    class Posgrado {
+        <<futuro>>
+        -id : String
+        -nombre : String
+        +Posgrado(id, nombre)
+    }
+    class FabricaDeUsuarios {
+        <<factory>>
+        +crear(tipo, id, nombre) Usuario
+    }
+    class FabricaDeUsuariosExtensible {
+        <<factory · OCP>>
+        -constructores : Map
+        +registrar(tipo, ctor) void
+        +crear(tipo, id, nombre) Usuario
+    }
+    class UsuarioController {
+        <<cliente>>
+    }
+
+    Usuario <|.. Estudiante : implementa
+    Usuario <|.. Bibliotecario : implementa
+    Usuario <|.. Admin : implementa
+    Usuario <|.. Posgrado : implementa
+    FabricaDeUsuarios ..> Usuario : crea
+    FabricaDeUsuariosExtensible ..> Usuario : crea
+    UsuarioController ..> FabricaDeUsuarios : usa

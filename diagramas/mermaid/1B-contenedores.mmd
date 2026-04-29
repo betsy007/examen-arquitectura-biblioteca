@@ -1,0 +1,39 @@
+%%{init: {'theme':'default'} }%%
+flowchart TB
+    classDef person fill:#08427b,stroke:#052e56,color:#ffffff
+    classDef container fill:#438dd5,stroke:#2a679f,color:#ffffff
+    classDef db fill:#438dd5,stroke:#2a679f,color:#ffffff
+    classDef external fill:#999999,stroke:#6b6b6b,color:#ffffff
+
+    Est["👤 Estudiante"]:::person
+    Bib["👤 Bibliotecario"]:::person
+    Adm["👤 Administrador"]:::person
+
+    subgraph Sistema["🟦 Sistema de Biblioteca CETYS"]
+        Web["🟦 Web App<br/><i>React + TypeScript</i><br/>SPA"]:::container
+        API["🟦 API Backend<br/><i>Java 17 + Spring Boot</i><br/>Logica de negocio"]:::container
+        Worker["🟦 Worker Notificaciones<br/><i>Python + Celery</i><br/>Envio asincrono"]:::container
+        Cola["🟦 Cola de Mensajes<br/><i>RabbitMQ</i>"]:::container
+        DB[("🛢 BD Operativa<br/><i>PostgreSQL 16</i>")]:::db
+        Audit[("🛢 BD Auditoria<br/><i>PostgreSQL append-only</i>")]:::db
+    end
+
+    Cat["🟪 Catalogo CETYS"]:::external
+    Pag["🟪 Sistema de Pagos"]:::external
+    Dir["🟪 Directorio LDAP"]:::external
+
+    Est -->|HTTPS| Web
+    Bib -->|HTTPS| Web
+    Adm -->|HTTPS| Web
+
+    Web -->|JSON/HTTPS| API
+
+    API -->|JDBC| DB
+    API -->|JDBC append-only| Audit
+    API -->|AMQP| Cola
+    Cola -->|AMQP| Worker
+    Worker -->|JDBC append-only| Audit
+
+    API -->|SOAP/HTTPS| Cat
+    API -->|HTTPS/REST| Pag
+    API -->|LDAP| Dir

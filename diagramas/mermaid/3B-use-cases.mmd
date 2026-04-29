@@ -1,0 +1,62 @@
+classDiagram
+    direction BT
+
+    class RegistrarPrestamoUseCase {
+        <<use case · capa Aplicación>>
+        -repoPrestamos : RepositorioPrestamos
+        -catalogo : CatalogoBiblioteca
+        -notificacion : ServicioNotificacion
+        -pagosGateway : PagosGateway
+        +ejecutar(solicitud) Prestamo
+    }
+
+    class RepositorioPrestamos {
+        <<interface · Dominio>>
+        +guardar(p) Prestamo
+        +buscarPorId(id) Optional
+        +buscarPorUsuario(uid) List
+        +buscarActivos() List
+    }
+    class CatalogoBiblioteca {
+        <<interface · Dominio>>
+        +buscarLibro(isbn) Libro
+    }
+    class ServicioNotificacion {
+        <<interface · Dominio>>
+        +notificar(dest, asunto, cuerpo)
+    }
+    class PagosGateway {
+        <<interface · Dominio>>
+        +cobrarFianza(usuarioId, monto) String
+    }
+
+    class RepoPrestamosEnMemoria {
+        <<Infraestructura>>
+    }
+    class RepoPrestamosJPA {
+        <<Infraestructura · futuro>>
+    }
+    class RepoPrestamosMongo {
+        <<Infraestructura · futuro>>
+    }
+    class CatalogoCETYSAdapter {
+        <<Infraestructura>>
+    }
+    class ServicioNotificacionConsola {
+        <<Infraestructura>>
+    }
+    class PagosGatewaySimulado {
+        <<Infraestructura>>
+    }
+
+    RegistrarPrestamoUseCase ..> RepositorioPrestamos : usa
+    RegistrarPrestamoUseCase ..> CatalogoBiblioteca : usa
+    RegistrarPrestamoUseCase ..> ServicioNotificacion : usa
+    RegistrarPrestamoUseCase ..> PagosGateway : usa
+
+    RepositorioPrestamos <|.. RepoPrestamosEnMemoria : implementa
+    RepositorioPrestamos <|.. RepoPrestamosJPA : implementa
+    RepositorioPrestamos <|.. RepoPrestamosMongo : implementa
+    CatalogoBiblioteca <|.. CatalogoCETYSAdapter : implementa
+    ServicioNotificacion <|.. ServicioNotificacionConsola : implementa
+    PagosGateway <|.. PagosGatewaySimulado : implementa

@@ -1,0 +1,75 @@
+classDiagram
+    direction BT
+
+    class PrestarLibroUC {
+        <<use case>>
+    }
+    class DevolverLibroUC {
+        <<use case>>
+    }
+    class RegistrarMultaUC {
+        <<use case>>
+    }
+    class GenerarReporteUC {
+        <<use case>>
+    }
+    class AutenticarUsuarioUC {
+        <<use case>>
+    }
+
+    class RepositorioPrestamos {
+        <<interface>>
+    }
+    class RepositorioMultas {
+        <<interface>>
+    }
+    class ServicioNotificacion {
+        <<interface>>
+    }
+    class GeneradorReportes {
+        <<interface>>
+    }
+    class ServicioAuth {
+        <<interface>>
+    }
+    class CatalogoBiblioteca {
+        <<interface>>
+    }
+
+    class RepoPrestamosJPA {
+        <<infraestructura>>
+    }
+    class RepoMultasJPA {
+        <<infraestructura>>
+    }
+    class ServicioEmailSMTP {
+        <<infraestructura>>
+    }
+    class ReportePDFBox {
+        <<infraestructura>>
+    }
+    class AuthLDAP {
+        <<infraestructura>>
+    }
+    class CatalogoCETYSAdapter {
+        <<infraestructura>>
+    }
+
+    PrestarLibroUC ..> RepositorioPrestamos
+    PrestarLibroUC ..> CatalogoBiblioteca
+    PrestarLibroUC ..> ServicioNotificacion
+    DevolverLibroUC ..> RepositorioPrestamos
+    DevolverLibroUC ..> RepositorioMultas
+    DevolverLibroUC ..> ServicioNotificacion
+    RegistrarMultaUC ..> RepositorioMultas
+    RegistrarMultaUC ..> ServicioNotificacion
+    GenerarReporteUC ..> RepositorioPrestamos
+    GenerarReporteUC ..> GeneradorReportes
+    AutenticarUsuarioUC ..> ServicioAuth
+
+    RepositorioPrestamos <|.. RepoPrestamosJPA
+    RepositorioMultas <|.. RepoMultasJPA
+    ServicioNotificacion <|.. ServicioEmailSMTP
+    GeneradorReportes <|.. ReportePDFBox
+    ServicioAuth <|.. AuthLDAP
+    CatalogoBiblioteca <|.. CatalogoCETYSAdapter

@@ -1,0 +1,27 @@
+package codigo.problema;
+
+/**
+ * Diseno PROBLEMATICO original presentado en el examen.
+ *
+ * Esta clase NO se usa en el sistema final. Se incluye solo como referencia
+ * para mostrar las violaciones SOLID que se identifican en 3A-analisis-violaciones.md
+ * y se refactorizan en codigo-refactorizado/.
+ *
+ * VIOLACIONES IDENTIFICADAS:
+ *   - SRP: 5+ razones para cambiar (negocio, email, PDF, auth, integracion).
+ *   - OCP: nuevos canales de notificacion forzarian modificar esta clase.
+ *   - DIP: depende de detalles concretos (SMTP, librerias PDF, SOAP, LDAP).
+ *   - ISP: clientes reciben metodos que no usan.
+ *
+ * NO COMPILAR: este archivo es ilustrativo. Las firmas no tienen implementacion.
+ */
+public class GestorBiblioteca {
+
+    public void prestarLibro()           { /* logica de negocio acoplada */ }
+    public void devolverLibro()          { /* logica de negocio acoplada */ }
+    public void registrarMulta()         { /* logica de negocio acoplada */ }
+    public void enviarEmailNotificacion(){ /* infraestructura SMTP acoplada */ }
+    public void generarReportePDF()      { /* infraestructura PDF acoplada */ }
+    public void autenticarUsuario()      { /* infraestructura LDAP acoplada */ }
+    public void consultarCatalogoCETYS() { /* integracion SOAP acoplada */ }
+}
