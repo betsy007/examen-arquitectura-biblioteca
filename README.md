@@ -1,8 +1,8 @@
-# Examen de prueba — Sistema de Biblioteca Universitaria
+# Examen — Sistema de Biblioteca Universitaria
 
-**Materia:** Arquitectura de Software
-**Institución:** CETYS Universidad
-**Tipo:** Parcial práctico
+**Materia:** Arquitectura de Software<br>
+**Institución:** CETYS Universidad<br>
+**Tipo:** Parcial práctico<br>
 **Temas evaluados:** Modelo C4 · Singleton · Factory · Adapter · Builder · Principios SOLID · Clean Architecture
 
 ---
@@ -106,25 +106,6 @@ mvn exec:java -Dexec.mainClass="cetys.biblioteca.demos.DemoSingleton"
 
 ---
 
-## Cómo ver los diagramas
-
-### Diagramas C4 (Sección 1)
-
-1. Abre [https://structurizr.com/dsl](https://structurizr.com/dsl)
-2. Pega el contenido de [`seccion-1-modelo-c4/workspace.dsl`](./seccion-1-modelo-c4/workspace.dsl)
-3. Selecciona la vista deseada: Contexto, Contenedores, Componentes_API
-4. Exporta como PNG y colócala en `diagramas/png/` con el nombre indicado en cada README
-
-### Diagramas UML (Secciones 2, 3, 4)
-
-1. Abre [https://mermaid.live](https://mermaid.live)
-2. Copia el contenido del archivo `.mmd` correspondiente desde `diagramas/mermaid/`
-3. Exporta como PNG (botón Actions → PNG) y colócala en `diagramas/png/`
-
-GitHub renderiza Mermaid de forma nativa en archivos `.md`, así que los diagramas también aparecen embebidos al navegar el repositorio en línea.
-
----
-
 ## Decisiones arquitectónicas globales
 
 1. **Auditoría centralizada como Singleton.** Modela explícitamente la restricción del rector: una sola instancia en toda la JVM.
@@ -137,4 +118,4 @@ GitHub renderiza Mermaid de forma nativa en archivos `.md`, así que los diagram
 
 ## Autora
 
-Betsy López — CETYS Universidad
+42167 - Betsy Danaeth Arceo Rivera — CETYS Universidad

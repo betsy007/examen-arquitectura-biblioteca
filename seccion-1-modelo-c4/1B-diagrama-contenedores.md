@@ -12,9 +12,9 @@ Expande al **nivel 2 (Containers)**. Descompón el sistema en al menos 4 contene
 
 ### Cómo renderizar el diagrama
 
-El [`workspace.dsl`](./workspace.dsl) contiene la vista **"Contenedores"** en el mismo workspace. Al renderizarlo en Structurizr, selecciona esa vista.
+El [`workspace.dsl`](./workspace.dsl) contiene la vista **"Contenedores"** en el mismo workspace. Al renderizarlo en [structurizr.com/dsl](https://structurizr.com/dsl), selecciona esa vista y exporta como PNG a `../diagramas/png/1B-contenedores.png`.
 
-### Diagrama exportado
+### Diagrama
 
 ![Diagrama de Contenedores](../diagramas/png/1B-contenedores.png)
 

@@ -8,9 +8,9 @@ Selecciona el contenedor API Backend y dibuja su **diagrama de componentes (nive
 
 ### Cómo renderizar el diagrama
 
-En el mismo [`workspace.dsl`](./workspace.dsl), selecciona la vista **"Componentes_API"**.
+En el mismo [`workspace.dsl`](./workspace.dsl), selecciona la vista **"Componentes_API"** en [structurizr.com/dsl](https://structurizr.com/dsl) y exporta como PNG a `../diagramas/png/1C-componentes.png`.
 
-### Diagrama exportado
+### Diagrama
 
 ![Diagrama de Componentes del API Backend](../diagramas/png/1C-componentes.png)
 

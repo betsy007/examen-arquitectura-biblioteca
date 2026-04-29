@@ -18,9 +18,9 @@ Dibuja el **diagrama de contexto del sistema** (C4 nivel 1). Incluye:
 1. Abre [https://structurizr.com/dsl](https://structurizr.com/dsl)
 2. Pega el contenido de [`workspace.dsl`](./workspace.dsl)
 3. Selecciona la vista **"Contexto"**
-4. Exporta como PNG y colócala en `../diagramas/png/1A-contexto.png`
+4. Exporta como PNG y reemplaza el archivo en `../diagramas/png/1A-contexto.png`
 
-### Diagrama exportado
+### Diagrama
 
 ![Diagrama de Contexto](../diagramas/png/1A-contexto.png)
 
